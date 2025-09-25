@@ -15,14 +15,6 @@ class TarefaController extends Controller
     }
 
 
-// public function index()
-// {
-//     $lista = Tarefa::all();
-//     return view('tarefa.list', compact('lista'));
-// }
-
-
-
 
    public function create()
 {
@@ -57,16 +49,7 @@ class TarefaController extends Controller
         return redirect('tarefa')->with('success', 'Tarefa cadastrada com sucesso!');
     }
 
-    public function edit(string $id)
-    {
-        $dado = Tarefa::findOrFail($id);
-        $categorias = CategoriaAluno::orderBy('nome')->get();
 
-        return view('tarefa.form', [
-            'dado' => $dado,
-            'categorias' => $categorias
-        ]);
-    }
 
     public function update(Request $request, string $id)
     {
