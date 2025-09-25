@@ -10,18 +10,15 @@ class TarefaController extends Controller
 {
     public function index()
     {
-        $dados = Tarefa::All();
-
+        $dados = Tarefa::all();
         return view('tarefa.list', ['dados' => $dados]);
     }
 
-
     public function create()
     {
-        //use App\Models\CategoriaAluno;
         $categorias = CategoriaAluno::orderBy('nome')->get();
-
-        return view('tarefa.form', ['categorias' => $categorias]);
+        $dado = new Tarefa(); // objeto vazio para o form
+        return view('tarefa.form', ['dado' => $dado, 'categorias' => $categorias]);
     }
 
     private function validateRequest(Request $request)
@@ -29,93 +26,58 @@ class TarefaController extends Controller
         $request->validate([
             'titulo' => 'required',
             'descricao' => 'required',
-            'dataentrega' => 'required',
+            'prazo' => 'required|date',
         ], [
-            'titulo.required' => 'O :attribute é obrigatório',
-            'descricao.required' => 'O :attribute é obrigatório',
-            'dataentrega.required' => 'O :attribute é obrigatório',
+            'titulo.required' => 'O campo título é obrigatório',
+            'descricao.required' => 'O campo descrição é obrigatório',
+            'prazo.required' => 'A data de entrega é obrigatória',
+            'prazo.date' => 'A data de entrega deve ser uma data válida',
         ]);
     }
 
-
-    // public function store(Request $request)
-    // {
-    //     // dd($request->all());
-    //     $this->validateRequest($request);
-    //     $data = $request->all();
-    //     $imagem = $request->file('imagem');
-
-    //     if ($imagem) {
-    //         $nome_imagem = date('YmdiHs') . "." . $imagem->getClientOriginalExtension();
-    //         $diretorio = "imagem/aluno/";
-
-    //         $imagem->storeAs(
-    //             $diretorio,
-    //             $nome_imagem,
-    //             'public'
-    //         );
-    //         $data['imagem'] = $diretorio . $nome_imagem;
-    //     }
-
-    //     Aluno::create($data);
-
-    //     return redirect('aluno');
-    // }
-
-
-    public function show(string $id)
+    public function store(Request $request)
     {
-        //
+        $this->validateRequest($request);
+
+        $data = $request->all();
+        $data['concluida'] = $request->has('concluida'); // checkbox
+
+        Tarefa::create($data);
+
+        return redirect('tarefa')->with('success', 'Tarefa cadastrada com sucesso!');
     }
 
+    public function edit(string $id)
+    {
+        $dado = Tarefa::findOrFail($id);
+        $categorias = CategoriaAluno::orderBy('nome')->get();
 
-    // public function edit(string $id)
-    // {
-    //     // dd($dado);
-    //     $dado = Aluno::findOrFail($id);
-    //     $categorias = CategoriaAluno::orderBy('nome')->get();
+        return view('tarefa.form', [
+            'dado' => $dado,
+            'categorias' => $categorias
+        ]);
+    }
 
-    //     return view( 'aluno.form',
-    //         [
-    //             'dado' => $dado,
-    //             'categorias'=>$categorias
-    //         ]
-    //     );
-    // }
+    public function update(Request $request, string $id)
+    {
+        $this->validateRequest($request);
 
+        $dado = Tarefa::findOrFail($id);
 
-    // public function update(Request $request, string $id)
-    // {
-    //     //dd($request->all());
-    //     $this->validateRequest($request);
-    //     $data = $request->all();
-    //     $imagem = $request->file('imagem');
+        $data = $request->all();
+        $data['concluida'] = $request->has('concluida'); // checkbox
 
-    //     if ($imagem) {
-    //         $nome_imagem = date('YmdiHs') . "." . $imagem->getClientOriginalExtension();
-    //         $diretorio = "imagem/aluno/";
+        $dado->update($data);
 
-    //         $imagem->storeAs(
-    //             $diretorio,
-    //             $nome_imagem,
-    //             'public'
-    //         );
-    //         $data['imagem'] = $diretorio . $nome_imagem;
-    //     }
-
-    //     Aluno::updateOrCreate(['id' => $id], $data);
-
-    //     return redirect('aluno');
-    // }
-
+        return redirect('tarefa')->with('success', 'Tarefa atualizada com sucesso!');
+    }
 
     public function destroy(string $id)
     {
         $dado = Tarefa::findOrFail($id);
-
         $dado->delete();
 
-        return redirect('tarefa');
+        return redirect('tarefa')->with('success', 'Tarefa excluída com sucesso!');
     }
 
     public function search(Request $request)
@@ -127,7 +89,7 @@ class TarefaController extends Controller
                 "%$request->valor%"
             )->get();
         } else {
-            $dados = Tarefa::All();
+            $dados = Tarefa::all();
         }
 
         return view('tarefa.list', ["dados" => $dados]);

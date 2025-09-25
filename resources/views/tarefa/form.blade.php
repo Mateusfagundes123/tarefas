@@ -1,12 +1,13 @@
 @extends('base')
-@section('titulo', 'Formulário Aluno')
-@section('conteudo')
 
+@section('titulo', 'Formulário Tarefa')
+
+@section('conteudo')
     @php
         if (!empty($dado->id)) {
-            $action = route('tarefa.update', $dado->id);
+            $action = route('tarefas.update', $dado->id);
         } else {
-            $action = route('tarefa.store');
+            $action = route('tarefas.store');
         }
     @endphp
 
@@ -21,23 +22,36 @@
 
         <div class="row">
             <div class="col">
-                <label for="">Titulo</label>
-                <input type="text" name="titulo" value="{{ old('tiyulo', $dado->tutulo ?? '') }}">
-            </div>
-            <div class="col">
-                <label for="">descriçao</label>
-                <input type="text" name="descricao" value="{{ old('descricao', $dado->descricao ?? '') }}">
-            </div>
-            <div class="col">
-                <label for="">data entrega</label>
-                <input type="text" name="dataentrega" value="{{ old('dataentrega', $dado->dataentrega ?? '') }}">
+                <label for="titulo">Título</label>
+                <input type="text" name="titulo" class="form-control"
+                       value="{{ old('titulo', $dado->titulo ?? '') }}" required>
             </div>
 
-        </div>
-        <div class="row">
             <div class="col">
-                <button type="submit" class="btn btn-success">{{ !empty($dado->id) ? 'Atualizar' : 'Salvar' }}</button>
-                <a href="{{ url('aluno') }}" class="btn btn-primary">Voltar</a>
+                <label for="descricao">Descrição</label>
+                <input type="text" name="descricao" class="form-control"
+                       value="{{ old('descricao', $dado->descricao ?? '') }}">
+            </div>
+
+            <div class="col">
+                <label for="prazo">Data de Entrega</label>
+                <input type="date" name="prazo" class="form-control"
+                       value="{{ old('prazo', $dado->prazo ?? '') }}">
+            </div>
+
+            <div class="col">
+                <label for="concluida">Concluída?</label><br>
+                <input type="checkbox" name="concluida" value="1"
+                       {{ old('concluida', $dado->concluida ?? false) ? 'checked' : '' }}>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                <button type="submit" class="btn btn-success">
+                    {{ !empty($dado->id) ? 'Atualizar' : 'Salvar' }}
+                </button>
+                <a href="{{ route('tarefas.index') }}" class="btn btn-primary">Voltar</a>
             </div>
         </div>
     </form>
