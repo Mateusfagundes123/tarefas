@@ -31,7 +31,7 @@
 
         <div class="mb-3">
             <label for="prazo">Prazo</label>
-            <input type="date" name="prazo" value="{{ old('prazo', $dado->prazo) }}" class="form-control">
+            <input type="date" name="dataentrega" value="{{ old('dataentrega', $dado->dataentrega) }}" class="form-control">
         </div>
 
         <div class="form-check">

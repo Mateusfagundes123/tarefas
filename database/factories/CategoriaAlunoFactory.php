@@ -18,7 +18,7 @@ class CategoriaAlunoFactory extends Factory
     {
         return [
             'nome' => $this->faker->unique()->randomElement([
-                'FUNDAMENTAL',
+                '',
                 'MÉDIO',
                 'GRADUAÇÃO',
                 'PÓS-GRADUAÇÃO'

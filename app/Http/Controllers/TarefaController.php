@@ -28,12 +28,12 @@ class TarefaController extends Controller
         $request->validate([
             'titulo' => 'required',
             'descricao' => 'required',
-            'prazo' => 'required|date',
+            'dataentrega' => 'required|date',
         ], [
             'titulo.required' => 'O campo título é obrigatório',
             'descricao.required' => 'O campo descrição é obrigatório',
-            'prazo.required' => 'A data de entrega é obrigatória',
-            'prazo.date' => 'A data de entrega deve ser uma data válida',
+            'dataentrega.required' => 'A data de entrega é obrigatória',
+            'dataentrega.date' => 'A data de entrega deve ser uma data válida',
         ]);
     }
 
@@ -87,4 +87,14 @@ class TarefaController extends Controller
 
         return view('tarefa.list', ["dados" => $dados]);
     }
+    public function edit(string $id)
+{
+    $dado = Tarefa::findOrFail($id);
+    $categorias = CategoriaAluno::orderBy('nome')->get();
+
+    return view('tarefa.form', [
+        'dado' => $dado,
+        'categorias' => $categorias
+    ]);
+}
 }
