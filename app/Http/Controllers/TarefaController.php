@@ -14,12 +14,22 @@ class TarefaController extends Controller
         return view('tarefa.list', ['dados' => $dados]);
     }
 
-    public function create()
-    {
-        $categorias = CategoriaAluno::orderBy('nome')->get();
-        $dado = new Tarefa(); // objeto vazio para o form
-        return view('tarefa.form', ['dado' => $dado, 'categorias' => $categorias]);
-    }
+
+// public function index()
+// {
+//     $lista = Tarefa::all();
+//     return view('tarefa.list', compact('lista'));
+// }
+
+
+
+
+   public function create()
+{
+    $categorias = CategoriaAluno::orderBy('nome')->get();
+    $dado = new Tarefa(); // objeto vazio para o form
+    return view('tarefa.form', ['dado' => $dado, 'categorias' => $categorias]);
+}
 
     private function validateRequest(Request $request)
     {

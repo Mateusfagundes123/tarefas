@@ -15,31 +15,25 @@
                 <th>Ações</th>
             </tr>
         </thead>
-        <tbody>
-            @foreach ($lista as $tarefa)
-                <tr>
-                    <td>{{ $tarefa->id }}</td>
-                    <td>{{ $tarefa->titulo }}</td>
-                    <td>{{ $tarefa->descricao }}</td>
-                    <td>{{ $tarefa->prazo }}</td>
-                    <td>{{ $tarefa->concluida ? 'Sim' : 'Não' }}</td>
-                    <td>
-                        <!-- CORREÇÃO: troquei 'tarefas.edit' por 'tarefa.edit' -->
-                        <a href="{{ route('tarefa.edit', $tarefa->id) }}" class="btn btn-warning btn-sm">Editar</a>
+      <tbody>
+    @foreach ($dados as $tarefa)
+        <tr>
+            <td>{{ $tarefa->id }}</td>
+            <td>{{ $tarefa->titulo }}</td>
+            <td>{{ $tarefa->descricao }}</td>
+            <td>{{ $tarefa->prazo }}</td>
+            <td>{{ $tarefa->concluida ? 'Sim' : 'Não' }}</td>
+            <td>
+                <a href="{{ route('tarefa.edit', $tarefa->id) }}" class="btn btn-primary btn-sm">Editar</a>
+                <form action="{{ route('tarefa.destroy', $tarefa->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                </form>
+            </td>
+        </tr>
+    @endforeach
+</tbody>
 
-                        <!-- CORREÇÃO: troquei 'tarefas.destroy' por 'tarefa.destroy' -->
-                        <form action="{{ route('tarefa.destroy', $tarefa->id) }}" method="POST"
-                              style="display:inline-block">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm"
-                                    onclick="return confirm('Deseja realmente excluir?')">
-                                Excluir
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
     </table>
 @stop

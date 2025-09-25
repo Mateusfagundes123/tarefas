@@ -11,48 +11,42 @@
         }
     @endphp
 
-    <form action="{{ $action }}" method="post" enctype="multipart/form-data">
-        @csrf
+   <form action="{{ route('tarefa.store') }}" method="POST">
+    @csrf
 
-        @if (!empty($dado->id))
-            @method('put')
-        @endif
+    <div class="mb-3">
+        <label for="titulo">Título</label>
+        <input type="text" name="titulo" value="{{ old('titulo', $dado->titulo) }}" class="form-control">
+    </div>
 
-        <input type="hidden" name="id" value="{{ old('id', $dado->id ?? '') }}">
+    <div class="mb-3">
+        <label for="descricao">Descrição</label>
+        <textarea name="descricao" class="form-control">{{ old('descricao', $dado->descricao) }}</textarea>
+    </div>
 
-        <div class="row">
-            <div class="col">
-                <label for="titulo">Título</label>
-                <input type="text" name="titulo" class="form-control"
-                       value="{{ old('titulo', $dado->titulo ?? '') }}" required>
-            </div>
+    <div class="mb-3">
+        <label for="prazo">Prazo</label>
+        <input type="date" name="prazo" value="{{ old('prazo', $dado->prazo) }}" class="form-control">
+    </div>
 
-            <div class="col">
-                <label for="descricao">Descrição</label>
-                <input type="text" name="descricao" class="form-control"
-                       value="{{ old('descricao', $dado->descricao ?? '') }}">
-            </div>
+    <div class="mb-3">
+        <label for="categoria_id">Categoria</label>
+        <select name="categoria_id" class="form-control">
+            @foreach ($categorias as $categoria)
+                <option value="{{ $categoria->id }}"
+                    {{ old('categoria_id', $dado->categoria_id) == $categoria->id ? 'selected' : '' }}>
+                    {{ $categoria->nome }}
+                </option>
+            @endforeach
+        </select>
+    </div>
 
-            <div class="col">
-                <label for="prazo">Data de Entrega</label>
-                <input type="date" name="prazo" class="form-control"
-                       value="{{ old('prazo', $dado->prazo ?? '') }}">
-            </div>
+    <div class="form-check">
+        <input type="checkbox" name="concluida" class="form-check-input" {{ $dado->concluida ? 'checked' : '' }}>
+        <label class="form-check-label">Concluída</label>
+    </div>
 
-            <div class="col">
-                <label for="concluida">Concluída?</label><br>
-                <input type="checkbox" name="concluida" value="1"
-                       {{ old('concluida', $dado->concluida ?? false) ? 'checked' : '' }}>
-            </div>
-        </div>
+    <button type="submit" class="btn btn-success">Salvar</button>
+</form>
 
-        <div class="row mt-3">
-            <div class="col">
-                <button type="submit" class="btn btn-success">
-                    {{ !empty($dado->id) ? 'Atualizar' : 'Salvar' }}
-                </button>
-                <a href="{{ route('tarefas.index') }}" class="btn btn-primary">Voltar</a>
-            </div>
-        </div>
-    </form>
 @stop
