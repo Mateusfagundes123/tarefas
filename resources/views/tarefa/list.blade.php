@@ -1,7 +1,5 @@
 @extends('base')
-
 @section('titulo', 'Lista de Tarefas')
-
 @section('conteudo')
     <h1>Lista de Tarefas</h1>
     <a href="{{ route('tarefa.create') }}" class="btn btn-success mb-3">Nova Tarefa</a>
@@ -26,9 +24,11 @@
                     <td>{{ $tarefa->prazo }}</td>
                     <td>{{ $tarefa->concluida ? 'Sim' : 'Não' }}</td>
                     <td>
-                        <a href="{{ route('tarefas.edit', $tarefa->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                        <!-- CORREÇÃO: troquei 'tarefas.edit' por 'tarefa.edit' -->
+                        <a href="{{ route('tarefa.edit', $tarefa->id) }}" class="btn btn-warning btn-sm">Editar</a>
 
-                        <form action="{{ route('tarefas.destroy', $tarefa->id) }}" method="POST"
+                        <!-- CORREÇÃO: troquei 'tarefas.destroy' por 'tarefa.destroy' -->
+                        <form action="{{ route('tarefa.destroy', $tarefa->id) }}" method="POST"
                               style="display:inline-block">
                             @csrf
                             @method('DELETE')
