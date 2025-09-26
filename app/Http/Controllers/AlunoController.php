@@ -29,12 +29,10 @@ class AlunoController extends Controller
         $request->validate([
             'nome' => 'required',
             'cpf' => 'required',
-            'categoria_id' => 'required',
             'imagem' => 'nullable|image|mimes:png,jpg,jpeg'
         ], [
             'nome.required' => 'O :attribute é obrigatório',
             'cpf.required' => 'O :attribute é obrigatório',
-            'categoria_id.required' => 'O :attribute é obrigatório',
             'imagem.image' => 'O :attribute deve ser enviado',
             'imagem.mimes' => 'O :attribute deve ser das extensões:PNG,JPEG,JPG',
         ]);

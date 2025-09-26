@@ -3,25 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tarefa;
-use App\Models\CategoriaAluno;
+use App\Models\GrauImportancia;
 use Illuminate\Http\Request;
 
 class TarefaController extends Controller
 {
     public function index()
     {
-        $dados = Tarefa::all();
+        $dados = Tarefa::with('grauImportancia')->get();
         return view('tarefa.list', ['dados' => $dados]);
     }
 
-
-
-   public function create()
-{
-    $categorias = CategoriaAluno::orderBy('nome')->get();
-    $dado = new Tarefa(); // objeto vazio para o form
-    return view('tarefa.form', ['dado' => $dado, 'categorias' => $categorias]);
-}
+    public function create()
+    {
+        $graus = GrauImportancia::orderBy('nome')->get();
+        $dado = new Tarefa(); // objeto vazio para o form
+        return view('tarefa.form', compact('dado', 'graus'));
+    }
 
     private function validateRequest(Request $request)
     {
@@ -34,6 +32,7 @@ class TarefaController extends Controller
             'descricao.required' => 'O campo descrição é obrigatório',
             'dataentrega.required' => 'A data de entrega é obrigatória',
             'dataentrega.date' => 'A data de entrega deve ser uma data válida',
+            
         ]);
     }
 
@@ -49,7 +48,13 @@ class TarefaController extends Controller
         return redirect('tarefa')->with('success', 'Tarefa cadastrada com sucesso!');
     }
 
+    public function edit(string $id)
+    {
+        $dado = Tarefa::findOrFail($id);
+        $graus = GrauImportancia::orderBy('nome')->get();
 
+        return view('tarefa.form', compact('dado', 'graus'));
+    }
 
     public function update(Request $request, string $id)
     {
@@ -80,21 +85,11 @@ class TarefaController extends Controller
                 $request->tipo,
                 'like',
                 "%$request->valor%"
-            )->get();
+            )->with('grauImportancia')->get();
         } else {
-            $dados = Tarefa::all();
+            $dados = Tarefa::with('grauImportancia')->get();
         }
 
         return view('tarefa.list', ["dados" => $dados]);
     }
-    public function edit(string $id)
-{
-    $dado = Tarefa::findOrFail($id);
-    $categorias = CategoriaAluno::orderBy('nome')->get();
-
-    return view('tarefa.form', [
-        'dado' => $dado,
-        'categorias' => $categorias
-    ]);
-}
 }

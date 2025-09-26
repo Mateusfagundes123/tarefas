@@ -17,8 +17,8 @@ class Tarefa extends Model
         'dataentrega',
     ];
 
-    // public function categoria()
-    // {
-    //     return $this->belongsTo(CategoriaAluno::class, 'categoria_id');
-    // }
+    public function grauImportancia()
+{
+    return $this->belongsTo(GrauImportancia::class);
+}
 }

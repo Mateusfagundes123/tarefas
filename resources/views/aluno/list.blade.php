@@ -43,12 +43,11 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <td>Imagem</td>
+                     <td>Imagem</td>
                     <td>#ID</td>
                     <td>Nome</td>
                     <td>CPF</td>
                     <td>Telefone</td>
-                    <td>Categoria</td>
                     <td>Ação</td>
                     <td>Ação</td>
                 </tr>
@@ -64,7 +63,6 @@
                         <td>{{ $item->nome }}</td>
                         <td>{{ $item->cpf }}</td>
                         <td>{{ $item->telefone }}</td>
-                        <td>{{ $item->categoria->nome }}</td>
                         <td>
                             <a href="{{ route('aluno.edit', $item->id) }}" class="btn btn-outline-warning">
                                 <i class="fa-solid fa-pen-to-square"></i>

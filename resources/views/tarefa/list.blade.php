@@ -21,6 +21,7 @@
             <td>{{ $tarefa->id }}</td>
             <td>{{ $tarefa->titulo }}</td>
             <td>{{ $tarefa->descricao }}</td>
+            <td>{{ $tarefa->grauImportancia->nome ?? 'Não definido' }}</td>
             <td>{{ $tarefa->prazo }}</td>
             <td>{{ $tarefa->concluida ? 'Sim' : 'Não' }}</td>
             <td>

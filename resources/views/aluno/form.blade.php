@@ -33,7 +33,7 @@
                 <input type="text" name="telefone" value="{{ old('telefone', $dado->telefone ?? '') }}">
             </div>
 
-            <div class="col">
+            <!-- <div class="col">
                 <label for="">Categoria</label>
                 <select name="categoria_id">
                     @foreach ($categorias as $item)
@@ -44,7 +44,7 @@
                         </option>
                     @endforeach
                 </select>
-            </div>
+            </div> -->
 
             @php
                 $nome_imagem = !empty($dado->imagem) ? $dado->imagem : 'sem_imagem.png';

@@ -29,8 +29,20 @@
             <textarea name="descricao" class="form-control">{{ old('descricao', $dado->descricao) }}</textarea>
         </div>
 
+        <div class="form-group">
+            <label for="grau_importancia_id">Grau de Importância</label>
+            <select name="grau_importancia_id" id="grau_importancia_id" class="form-control">
+                @foreach($graus as $g)
+                    <option value="{{ $g->id }}" 
+                        {{ old('grau_importancia_id', $dado->grau_importancia_id) == $g->id ? 'selected' : '' }}>
+                        {{ $g->nome }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
         <div class="mb-3">
-            <label for="prazo">Prazo</label>
+            <label for="prazo">Data entrega</label>
             <input type="date" name="dataentrega" value="{{ old('dataentrega', $dado->dataentrega) }}" class="form-control">
         </div>
 
