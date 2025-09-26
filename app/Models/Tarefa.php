@@ -19,6 +19,5 @@ class Tarefa extends Model
 
     public function grauImportancia()
 {
-    return $this->belongsTo(GrauImportancia::class);
-}
+    return $this->belongsTo(\App\Models\GrauImportancia::class, 'grau_importancia_id');}
 }

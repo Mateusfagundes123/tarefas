@@ -10,9 +10,11 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
+        $this->call(GrauImportanciaSeeder::class);
         $this->call([
             CategoriaAlunoSeeder::class,
             AlunoSeeder::class,
+            
         ]);
 
         // \App\Models\User::factory(10)->create();

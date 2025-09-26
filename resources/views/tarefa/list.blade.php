@@ -10,7 +10,8 @@
                 <th>ID</th>
                 <th>Título</th>
                 <th>Descrição</th>
-                <th>Prazo</th>
+                <th>Grau de Importancia</th>
+                <th>Data Entrega</th>
                 <th>Concluída</th>
                 <th>Ações</th>
             </tr>
@@ -21,8 +22,8 @@
             <td>{{ $tarefa->id }}</td>
             <td>{{ $tarefa->titulo }}</td>
             <td>{{ $tarefa->descricao }}</td>
-            <td>{{ $tarefa->grauImportancia->nome ?? 'Não definido' }}</td>
-            <td>{{ $tarefa->prazo }}</td>
+            <td>{{ $tarefa->grauImportancia?->nome ?? 'Sem grau definido' }}</td>
+            <td>{{ $tarefa->dataentrega }}</td>
             <td>{{ $tarefa->concluida ? 'Sim' : 'Não' }}</td>
             <td>
                 <a href="{{ route('tarefa.edit', $tarefa->id) }}" class="btn btn-primary btn-sm">Editar</a>

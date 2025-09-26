@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 
 class TarefaController extends Controller
 {
-    public function index()
+   public function index()
     {
+        // Carregar junto o grau de importância (relacionamento)
         $dados = Tarefa::with('grauImportancia')->get();
-        return view('tarefa.list', ['dados' => $dados]);
-    }
+
+        return view('tarefa.list', compact('dados'));
+    }   
 
     public function create()
     {
