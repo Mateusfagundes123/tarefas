@@ -11,13 +11,11 @@ class Tarefa extends Model
 
     protected $table = "tarefas";
 
-    protected $fillable = [
-        'titulo',
-        'descricao',
-        'dataentrega',
-    ];
+      protected $fillable = ['titulo','descricao','dataentrega','concluida','grau_importancia_id'];
+
 
     public function grauImportancia()
-{
-    return $this->belongsTo(\App\Models\GrauImportancia::class, 'grau_importancia_id');}
+    {
+        return $this->belongsTo(\App\Models\GrauImportancia::class, 'grau_importancia_id');
+    }
 }

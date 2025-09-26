@@ -9,8 +9,8 @@ class GrauImportancia extends Model
 {
     protected $fillable = ['nome'];
 
-    public function tarefas()
+     public function tarefas()
     {
-        return $this->hasMany(Tarefa::class);
+        return $this->hasMany(\App\Models\Tarefa::class, 'grau_importancia_id', 'id');
     }
 }
