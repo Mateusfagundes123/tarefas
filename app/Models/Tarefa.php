@@ -11,7 +11,7 @@ class Tarefa extends Model
 
     protected $table = "tarefas";
 
-      protected $fillable = ['titulo','descricao','dataentrega','concluida','grau_importancia_id'];
+    protected $fillable = ['titulo', 'descricao', 'grau_importancia_id', 'dataentrega', 'concluida'];
 
 
     public function grauImportancia()
