@@ -9,7 +9,7 @@ Route::get('/', function () {
 });
 
 /**
- * Rotas Aluno
+ * Rotas Cliente
  */
 Route::get('/cliente', [ClienteController::class, 'index'])->name('cliente.index');
 Route::get('/cliente/create', [ClienteController::class, 'create'])->name('cliente.create');

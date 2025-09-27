@@ -59,7 +59,7 @@
                         $nome_imagem = !empty($item->imagem) ? $item->imagem : 'sem_imagem.png';
                     @endphp -->
                     <tr>
-                        <td><img src="/storage/{{ $nome_imagem }}" width="100px" height="100px" alt="img"></td>
+                        <!-- <td><img src="/storage/{{ $nome_imagem }}" width="100px" height="100px" alt="img"></td> -->
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->nome }}</td>
                         <td>{{ $item->email }}</td>
@@ -86,3 +86,10 @@
     </div>
 
 @stop
+
+
+
+
+
+
+

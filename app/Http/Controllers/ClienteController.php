@@ -15,12 +15,10 @@ class ClienteController extends Controller
     }
 
 
-    public function create()
-    {
-        //$categorias = CategoriaCliente::orderBy('nome')->get();
-
-        return view('cliente.form', ['categorias' => $categorias]);
-    }
+   public function create()
+{
+    return view('cliente.form');
+}
 
     private function validateRequest(Request $request)
     {
