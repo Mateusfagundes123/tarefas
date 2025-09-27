@@ -2,26 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Aluno;
-use App\Models\CategoriaAluno;
+use App\Models\Cliente;
 use Illuminate\Http\Request;
 
-class AlunoController extends Controller
+class ClienteController extends Controller
 {
     public function index()
     {
-        $dados = Aluno::All();
+        $dados = Cliente::All();
 
-        return view('aluno.list', ['dados' => $dados]);
+        return view('cliente.list', ['dados' => $dados]);
     }
 
 
     public function create()
     {
-        //use App\Models\CategoriaAluno;
-        $categorias = CategoriaAluno::orderBy('nome')->get();
+        //$categorias = CategoriaCliente::orderBy('nome')->get();
 
-        return view('aluno.form', ['categorias' => $categorias]);
+        return view('cliente.form', ['categorias' => $categorias]);
     }
 
     private function validateRequest(Request $request)
@@ -58,9 +56,9 @@ class AlunoController extends Controller
             $data['imagem'] = $diretorio . $nome_imagem;
         }
 
-        Aluno::create($data);
+        Cliente::create($data);
 
-        return redirect('aluno');
+        return redirect('cliente');
     }
 
 
@@ -73,13 +71,13 @@ class AlunoController extends Controller
     public function edit(string $id)
     {
         // dd($dado);
-        $dado = Aluno::findOrFail($id);
-        $categorias = CategoriaAluno::orderBy('nome')->get();
+        $dado = Cliente::findOrFail($id);
+        //$categorias = CategoriaCliente::orderBy('nome')->get();
 
-        return view( 'aluno.form',
+        return view( 'cliente.form',
             [
                 'dado' => $dado,
-                'categorias'=>$categorias
+                //'categorias'=>$categorias
             ]
         );
     }
@@ -104,33 +102,33 @@ class AlunoController extends Controller
             $data['imagem'] = $diretorio . $nome_imagem;
         }
 
-        Aluno::updateOrCreate(['id' => $id], $data);
+        Cliente::updateOrCreate(['id' => $id], $data);
 
-        return redirect('aluno');
+        return redirect('cliente');
     }
 
 
     public function destroy(string $id)
     {
-        $dado = Aluno::findOrFail($id);
+        $dado = Cliente::findOrFail($id);
 
         $dado->delete();
 
-        return redirect('aluno');
+        return redirect('cliente');
     }
 
     public function search(Request $request)
     {
         if (!empty($request->valor)) {
-            $dados = Aluno::where(
+            $dados = Cliente::where(
                 $request->tipo,
                 'like',
                 "%$request->valor%"
             )->get();
         } else {
-            $dados = Aluno::All();
+            $dados = Cliente::All();
         }
 
-        return view('aluno.list', ["dados" => $dados]);
+        return view('Cliente.list', ["dados" => $dados]);
     }
 }

@@ -1,12 +1,12 @@
 @extends('base')
-@section('titulo', 'Listagem de Alunos')
+@section('titulo', 'Listagem de Clientes')
 @section('conteudo')
 
-    <h3>Listagem de Alunos</h3>
+    <h3>Listagem de Clientes</h3>
 
     <div class="row">
         <div class="col">
-            <form action="{{ route('aluno.search') }}" method="post">
+            <form action="{{ route('cliente.search') }}" method="post">
                 @csrf
                 <div class="row">
                     <div class="col-md-3">
@@ -29,7 +29,7 @@
                         </button>
                     </div>
                     <div class="col-md-3">
-                        <a class="btn btn-success" href="{{ url('/aluno/create') }}"> <i class="fa-solid fa-plus"></i>
+                        <a class="btn btn-success" href="{{ url('/cliente/create') }}"> <i class="fa-solid fa-plus"></i>
                             Novo</a>
                     </div>
                 </div>
@@ -43,9 +43,10 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                     <td>Imagem</td>
+                     <!-- <td>Imagem</td> -->
                     <td>#ID</td>
                     <td>Nome</td>
+                    <td>Email</td>
                     <td>CPF</td>
                     <td>Telefone</td>
                     <td>Ação</td>
@@ -54,22 +55,23 @@
             </thead>
             <tbody>
                 @foreach ($dados as $item)
-                    @php
+                    <!-- @php
                         $nome_imagem = !empty($item->imagem) ? $item->imagem : 'sem_imagem.png';
-                    @endphp
+                    @endphp -->
                     <tr>
                         <td><img src="/storage/{{ $nome_imagem }}" width="100px" height="100px" alt="img"></td>
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->nome }}</td>
+                        <td>{{ $item->email }}</td>
                         <td>{{ $item->cpf }}</td>
                         <td>{{ $item->telefone }}</td>
                         <td>
-                            <a href="{{ route('aluno.edit', $item->id) }}" class="btn btn-outline-warning">
+                            <a href="{{ route('cliente.edit', $item->id) }}" class="btn btn-outline-warning">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
                         </td>
                         <td>
-                            <form action="{{ route('aluno.destroy', $item->id) }}" method="post">
+                            <form action="{{ route('cliente.destroy', $item->id) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-outline-danger"

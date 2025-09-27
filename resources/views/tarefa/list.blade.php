@@ -2,8 +2,38 @@
 @section('titulo', 'Lista de Tarefas')
 @section('conteudo')
     <h1>Lista de Tarefas</h1>
-    <a href="{{ route('tarefa.create') }}" class="btn btn-success mb-3">Nova Tarefa</a>
 
+        <div class="row">
+        <div class="col">
+            <form action="{{ route('tarefa.search') }}" method="post">
+                @csrf
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="form-label">Tipo</label>
+                        <select name="tipo" class="form-select">
+                            <option value="titulo">Titulo</option>
+                        </select>
+
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Valor</label>
+                        <input type="text" class="form-control" name="valor" placeholder="Pesquisar...">
+                    </div>
+
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-solid fa-magnifying-glass"></i> Buscar
+                        </button>
+                    </div>
+
+                    <div class="col-md-3">
+                       <a href="{{ route('tarefa.create') }}" class="btn btn-success mb-3">Nova Tarefa</a>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
     <table class="table table-bordered">
         <thead>
             <tr>

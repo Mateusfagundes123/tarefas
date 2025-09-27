@@ -13,6 +13,7 @@ class TarefaFactory extends Factory
             'titulo' => $this->faker->name,
             'descricao' => $this->faker->numerify('###########'),
             'dataentrega' => $this->faker->phoneNumber(),
+            'concluida' => false,
         ];
     }
 }
