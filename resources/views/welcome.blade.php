@@ -91,7 +91,7 @@
     <!-- Rodapé -->
     <footer class="bg-gray-800 text-white py-6 mt-12">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <p>Sistema de Gestão &copy; 2023 - Desenvolvido com Laravel</p>
+            <p>Sistema de Gestão de tarefas s&copy;l</p>
         </div>
     </footer>
 </body>
