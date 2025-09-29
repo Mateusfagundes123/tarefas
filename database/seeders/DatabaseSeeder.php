@@ -12,8 +12,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(GrauImportanciaSeeder::class);
         $this->call([
-            CategoriaAlunoSeeder::class,
-            AlunoSeeder::class,
+        ClienteSeeder::class,
             
         ]);
 
