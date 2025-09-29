@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\TarefaController;
+use App\Http\Controllers\ProjetoController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,3 +31,7 @@ Route::get('/tarefa/edit/{id}', [TarefaController::class, 'edit'])->name('tarefa
 Route::put('/tarefa/update/{id}', [TarefaController::class, 'update'])->name('tarefa.update');
 Route::post('/tarefa/search', [TarefaController::class, 'search'])->name('tarefa.search');
 Route::delete('tarefa/{id}', [TarefaController::class, 'destroy'])->name('tarefa.destroy');
+/**
+ * Rotas projeto
+ */ 
+Route::resource('projeto', ProjetoController::class)->except(['show']);

@@ -18,4 +18,8 @@ class Tarefa extends Model
     {
         return $this->belongsTo(\App\Models\GrauImportancia::class, 'grau_importancia_id');
     }
+        public function projeto()
+    {
+        return $this->belongsTo(Projeto::class);
+    }
 }

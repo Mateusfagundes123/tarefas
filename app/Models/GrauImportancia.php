@@ -7,10 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class GrauImportancia extends Model
 {
-    protected $fillable = ['nome'];
+    use HasFactory;
 
-     public function tarefas()
-    {
-        return $this->hasMany(\App\Models\Tarefa::class, 'grau_importancia_id', 'id');
-    }
+    protected $fillable = ['nome'];
 }
