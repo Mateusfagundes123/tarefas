@@ -42,16 +42,16 @@
         </div> -->
 
             <div class="mb-3">
-        <label for="grau_importancia_id" class="form-label">Grau de Importância</label>
-       <select name="grau_importancia_id" class="form-control">
-    <option value="">-- Selecione --</option>
-    @foreach($graus as $grau)
-        <option value="{{ $grau->id }}" {{ old('grau_importancia_id', $dado->grau_importancia_id) == $grau->id ? 'selected' : '' }}>
-            {{ $grau->nome }}
-        </option>
-    @endforeach
-</select>
-    </div>
+                <label for="grau_importancia_id" class="form-label">Grau de Importância</label>
+                    <select name="grau_importancia_id" class="form-control">
+                        <option value="">-- Selecione --</option>
+                        @foreach($graus as $grau)
+                            <option value="{{ $grau->id }}" {{ old('grau_importancia_id', $dado->grau_importancia_id) == $grau->id ? 'selected' : '' }}>
+                                {{ $grau->nome }}
+                            </option>
+                        @endforeach
+                    </select>
+            </div>
 
 
 
@@ -64,6 +64,20 @@
             <input type="checkbox" name="concluida" class="form-check-input" {{ $dado->concluida ? 'checked' : '' }}>
             <label class="form-check-label">Concluída</label>
         </div>
+
+           <div class="mb-3">
+    <label for="projeto_id" class="form-label">Projeto</label>
+    <select name="projeto_id" class="form-control">
+        <option value="">-- Selecione --</option>
+        @foreach($projetos as $projeto)
+            <option value="{{ $projeto->id }}" 
+                {{ old('projeto_id', $dado->projeto_id) == $projeto->id ? 'selected' : '' }}>
+                {{ $projeto->nome }}
+            </option>
+        @endforeach
+    </select>
+</div>
+        
 
         <button type="submit" class="btn btn-success">Salvar</button>
     </form>

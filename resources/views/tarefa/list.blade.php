@@ -43,6 +43,7 @@
                 <th>Grau de Importancia</th>
                 <th>Data Entrega</th>
                 <th>Concluída</th>
+                <th>Projeto</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -55,6 +56,8 @@
             <td>{{ $tarefa->grauImportancia?->nome ?? 'Sem grau definido' }}</td>
             <td>{{ $tarefa->dataentrega }}</td>
             <td>{{ $tarefa->concluida ? 'Sim' : 'Não' }}</td>
+            <td>{{ $tarefa->projeto?->nome ?? 'Sem projeto' }}</td>
+
             <td>
                 <a href="{{ route('tarefa.edit', $tarefa->id) }}" class="btn btn-primary btn-sm">Editar</a>
                 <form action="{{ route('tarefa.destroy', $tarefa->id) }}" method="POST" style="display:inline;">

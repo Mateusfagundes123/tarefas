@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tarefa;
 use App\Models\GrauImportancia;
 use Illuminate\Http\Request;
+use App\Models\Projeto;
 
 class TarefaController extends Controller
 {
@@ -14,12 +15,14 @@ class TarefaController extends Controller
         return view('tarefa.list', ['dados' => $dados]);
     } 
 
-    public function create()
-    {
-        $graus = GrauImportancia::orderBy('nome')->get();
-        $dado = new Tarefa(); // objeto vazio para o form
-        return view('tarefa.form', compact('dado', 'graus'));
-    }
+   public function create()
+{
+    $dado = new Tarefa();
+    $graus = GrauImportancia::orderBy('nome')->get();
+    $projetos = Projeto::orderBy('nome')->get();
+
+    return view('tarefa.form', compact('dado', 'graus', 'projetos'));
+}
 
     private function validateRequest(Request $request)
     {
@@ -48,14 +51,14 @@ class TarefaController extends Controller
         return redirect('tarefa')->with('success', 'Tarefa cadastrada com sucesso!');
     }
 
-    public function edit(string $id)
-    {
-        $dado = Tarefa::findOrFail($id);
-        $graus = GrauImportancia::orderBy('nome')->get();
+   public function edit($id)
+{
+    $dado = Tarefa::findOrFail($id);
+    $graus = GrauImportancia::orderBy('nome')->get();
+    $projetos = Projeto::orderBy('nome')->get();
 
-        return view('tarefa.form', compact('dado', 'graus'));
-    }
-
+    return view('tarefa.form', compact('dado', 'graus', 'projetos'));
+}
     public function update(Request $request, string $id)
     {
         $this->validateRequest($request);
