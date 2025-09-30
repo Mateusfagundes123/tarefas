@@ -10,13 +10,13 @@ class ProjetoController extends Controller
     public function index()
     {
         $projetos = Projeto::orderBy('id', 'desc')->get();
-        return view('projeto.list', compact('projetos'));
+        return view('projetos.list', compact('projetos'));
     }
 
     // Exibe o formulário para criar novo projeto
     public function create()
     {
-        return view('projeto.form');
+        return view('projetos.form');
     }
 
     // Salva o projeto no banco

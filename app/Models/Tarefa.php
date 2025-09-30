@@ -9,9 +9,11 @@ class Tarefa extends Model
 {
     use HasFactory;
 
-    protected $table = "tarefas";
 
-    protected $fillable = ['titulo', 'descricao', 'grau_importancia_id', 'dataentrega', 'concluida'];
+    protected $table = "tarefas";
+    
+
+    protected $fillable = ['titulo', 'descricao', 'grau_importancia_id', 'dataentrega', 'concluida','projeto_id'];
 
 
     public function grauImportancia()
