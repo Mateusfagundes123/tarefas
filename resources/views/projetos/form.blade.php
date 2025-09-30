@@ -49,6 +49,5 @@
         </div>
 
         <button type="submit" class="btn btn-success">Salvar</button>
-        <a href="{{ route('projetos.list') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 @stop

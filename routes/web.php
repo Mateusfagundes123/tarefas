@@ -38,7 +38,8 @@ Route::post('/projetos/search', [ProjetoController::class, 'search'])->name('pro
 Route::get('/projetos', [ProjetoController::class, 'index'])->name('projetos.list');
 Route::get('/projetos/create', [ProjetoController::class, 'create'])->name('projetos.create');
 Route::post('/projetos', [ProjetoController::class, 'store'])->name('projetos.store');
-Route::get('/projetos/{projeto}/edit', [ProjetoController::class, 'edit'])->name('projetos.edit');
+Route::get('/projetos/edit{id}', [ProjetoController::class, 'edit'])->name('projetos.edit');
 Route::put('/projetos/{projeto}', [ProjetoController::class, 'update'])->name('projetos.update');
 Route::delete('/projetos/{projeto}', [ProjetoController::class, 'destroy'])->name('projetos.destroy');
 Route::get('/projetos/{projeto}', [ProjetoController::class, 'show'])->name('projetos.show');
+Route::resource('projetos', ProjetoController::class);  

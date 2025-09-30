@@ -55,31 +55,33 @@ class TarefaController extends Controller
         return redirect()->route('tarefa.index')->with('success', 'Tarefa cadastrada com sucesso!');
     }
 
-    public function edit(Tarefa $tarefa)
-    {
-        $projetos = Projeto::all();
-        $graus = GrauImportancia::all();
+ public function edit($id)
+{
+    $dado = Tarefa::findOrFail($id); // sempre retorna um objeto válido
+    $projetos = Projeto::all();
+    $graus = GrauImportancia::all();
 
-        return view('tarefa.form', [
-            'dado' => $tarefa,
-            'projetos' => $projetos,
-            'graus' => $graus,
-        ]);
-    }
+    return view('tarefa.form', [
+        'dado' => $dado,       // mantém o nome igual ao form.blade.php
+        'projetos' => $projetos,
+        'graus' => $graus,
+    ]);
+}
 
-    public function update(Request $request, string $id)
-    {
-        $this->validateRequest($request);
 
-        $dado = Tarefa::findOrFail($id);
+   public function update(Request $request, $id)
+{
+    $this->validateRequest($request);
 
-        $data = $request->all();
-        $data['concluida'] = $request->has('concluida'); 
+    $dado = Tarefa::findOrFail($id);
 
-        $dado->update($data);
+    $data = $request->all();
+    $data['concluida'] = $request->has('concluida'); 
 
-        return redirect()->route('tarefa.index')->with('success', 'Tarefa atualizada com sucesso!');
-    }
+    $dado->update($data);
+
+    return redirect()->route('tarefa.index')->with('success', 'Tarefa atualizada com sucesso!');
+}
 
     public function destroy(string $id)
     {
