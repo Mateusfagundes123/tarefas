@@ -1,9 +1,40 @@
 @extends('base')
 
-@section('titulo', 'Projetos')
+@section('titulo', 'Lista de Projetos')
 
 @section('conteudo')
-    <a href="{{ route('projetos.create') }}" class="btn btn-success mb-3">Novo Projeto</a>
+    <h1>Lista de Projetos</h1>
+
+    <div class="row">
+        <div class="col">
+            <form action="{{ route('projetos.search') }}" method="post">
+                @csrf
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="form-label">Tipo</label>
+                        <select name="tipo" class="form-select">
+                            <option value="nome">Nome</option>
+                            <option value="descricao">Descrição</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Valor</label>
+                        <input type="text" class="form-control" name="valor" placeholder="Pesquisar...">
+                    </div>
+
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-solid fa-magnifying-glass"></i> Buscar
+                        </button>
+                    </div>
+
+                    <div class="col-md-3">
+                        <a href="{{ route('projetos.create') }}" class="btn btn-success mb-3">Novo Projeto</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <table class="table table-bordered">
         <thead>
@@ -12,6 +43,7 @@
                 <th>Nome</th>
                 <th>Descrição</th>
                 <th>Prazo</th>
+                <th>Tarefas Associadas</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -21,10 +53,18 @@
                     <td>{{ $projeto->id }}</td>
                     <td>{{ $projeto->nome }}</td>
                     <td>{{ $projeto->descricao }}</td>
-                    <td>{{ $projeto->prazo }}</td>
+                    <td>{{ $projeto->prazo ? \Carbon\Carbon::parse($projeto->prazo)->format('d/m/Y') : '-' }}</td>
                     <td>
-    {{ $projeto->prazo ? \Carbon\Carbon::parse($projeto->prazo)->format('d/m/Y') : '-' }}
-</td>
+                        @if($projeto->tarefas->count() > 0)
+                            <ul>
+                                @foreach($projeto->tarefas as $tarefa)
+                                    <li>{{ $tarefa->titulo }} ({{ $tarefa->concluida ? 'Concluída' : 'Pendente' }})</li>
+                                @endforeach
+                            </ul>
+                        @else
+                            Nenhuma tarefa
+                        @endif
+                    </td>
                     <td>
                         <a href="{{ route('projetos.edit', $projeto->id) }}" class="btn btn-primary btn-sm">Editar</a>
 

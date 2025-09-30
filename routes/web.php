@@ -34,6 +34,7 @@ Route::delete('tarefa/{id}', [TarefaController::class, 'destroy'])->name('tarefa
 /**
  * Rotas projeto
  */ 
+Route::post('/projetos/search', [ProjetoController::class, 'search'])->name('projetos.search');
 Route::get('/projetos', [ProjetoController::class, 'index'])->name('projetos.list');
 Route::get('/projetos/create', [ProjetoController::class, 'create'])->name('projetos.create');
 Route::post('/projetos', [ProjetoController::class, 'store'])->name('projetos.store');

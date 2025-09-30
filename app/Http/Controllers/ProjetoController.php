@@ -94,5 +94,16 @@ class ProjetoController extends Controller
     {
         return view('projetos.show', compact('projeto'));
     }
+    public function search(Request $request)
+{
+    $tipo = $request->tipo;
+    $valor = $request->valor;
+
+    $projetos = Projeto::with('tarefas')
+        ->where($tipo, 'like', "%{$valor}%")
+        ->get();
+
+    return view('projetos.list', compact('projetos'));
+}
     
 }

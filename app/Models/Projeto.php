@@ -15,4 +15,5 @@ class Projeto extends Model
     {
         return $this->hasMany(Tarefa::class);
     }
+    
 }
