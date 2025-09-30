@@ -13,16 +13,19 @@ class TarefaController extends Controller
     {
         $dados = Tarefa::with('grauImportancia')->get();
         return view('tarefa.list', ['dados' => $dados]);
-    } 
+    }
 
-   public function create()
-{
-    $dado = new Tarefa();
-    $graus = GrauImportancia::orderBy('nome')->get();
-    $projetos = Projeto::orderBy('nome')->get();
+    public function create()
+    {
+        $projetos = Projeto::all(); 
+        $graus = GrauImportancia::all();
 
-    return view('tarefa.form', compact('dado', 'graus', 'projetos'));
-}
+        return view('tarefa.form', [
+            'dado' => new Tarefa(), 
+            'projetos' => $projetos,
+            'graus' => $graus,
+        ]);
+    }
 
     private function validateRequest(Request $request)
     {
@@ -30,12 +33,13 @@ class TarefaController extends Controller
             'titulo' => 'required',
             'descricao' => 'required',
             'dataentrega' => 'required|date',
+            'grau_importancia_id' => 'required|exists:grau_importancias,id',
         ], [
             'titulo.required' => 'O campo título é obrigatório',
             'descricao.required' => 'O campo descrição é obrigatório',
             'dataentrega.required' => 'A data de entrega é obrigatória',
             'dataentrega.date' => 'A data de entrega deve ser uma data válida',
-            
+            'grau_importancia_id.required' => 'Selecione um grau de importância',
         ]);
     }
 
@@ -44,21 +48,25 @@ class TarefaController extends Controller
         $this->validateRequest($request);
 
         $data = $request->all();
-        $data['concluida'] = $request->has('concluida'); // checkbox
+        $data['concluida'] = $request->has('concluida'); 
 
         Tarefa::create($data);
 
-        return redirect('tarefa')->with('success', 'Tarefa cadastrada com sucesso!');
+        return redirect()->route('tarefa.index')->with('success', 'Tarefa cadastrada com sucesso!');
     }
 
-   public function edit($id)
-{
-    $dado = Tarefa::findOrFail($id);
-    $graus = GrauImportancia::orderBy('nome')->get();
-    $projetos = Projeto::orderBy('nome')->get();
+    public function edit(Tarefa $tarefa)
+    {
+        $projetos = Projeto::all();
+        $graus = GrauImportancia::all();
 
-    return view('tarefa.form', compact('dado', 'graus', 'projetos'));
-}
+        return view('tarefa.form', [
+            'dado' => $tarefa,
+            'projetos' => $projetos,
+            'graus' => $graus,
+        ]);
+    }
+
     public function update(Request $request, string $id)
     {
         $this->validateRequest($request);
@@ -66,11 +74,11 @@ class TarefaController extends Controller
         $dado = Tarefa::findOrFail($id);
 
         $data = $request->all();
-        $data['concluida'] = $request->has('concluida'); // checkbox
+        $data['concluida'] = $request->has('concluida'); 
 
         $dado->update($data);
 
-        return redirect('tarefa')->with('success', 'Tarefa atualizada com sucesso!');
+        return redirect()->route('tarefa.index')->with('success', 'Tarefa atualizada com sucesso!');
     }
 
     public function destroy(string $id)
@@ -78,7 +86,7 @@ class TarefaController extends Controller
         $dado = Tarefa::findOrFail($id);
         $dado->delete();
 
-        return redirect('tarefa')->with('success', 'Tarefa excluída com sucesso!');
+        return redirect()->route('tarefa.index')->with('success', 'Tarefa excluída com sucesso!');
     }
 
     public function search(Request $request)

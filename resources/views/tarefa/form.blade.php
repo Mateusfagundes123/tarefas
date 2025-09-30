@@ -41,19 +41,17 @@
             </select>
         </div> -->
 
-            <div class="mb-3">
-                <label for="grau_importancia_id" class="form-label">Grau de Importância</label>
-                    <select name="grau_importancia_id" class="form-control">
-                        <option value="">-- Selecione --</option>
-                        @foreach($graus as $grau)
-                            <option value="{{ $grau->id }}" {{ old('grau_importancia_id', $dado->grau_importancia_id) == $grau->id ? 'selected' : '' }}>
-                                {{ $grau->nome }}
-                            </option>
-                        @endforeach
-                    </select>
-            </div>
-
-
+            <div class="form-group">
+    <label for="grau_importancia_id">Grau de Importância</label>
+    <select name="grau_importancia_id" id="grau_importancia_id" class="form-control">
+        @foreach($graus as $g)
+            <option value="{{ $g->id }}"
+                {{ old('grau_importancia_id', $dado->grau_importancia_id ?? '') == $g->id ? 'selected' : '' }}>
+                {{ $g->nome }}
+            </option>
+        @endforeach
+    </select>
+</div>
 
         <div class="mb-3">
             <label for="prazo">Data entrega</label>
@@ -65,17 +63,18 @@
             <label class="form-check-label">Concluída</label>
         </div>
 
-           <div class="mb-3">
+         <div class="mb-3">
     <label for="projeto_id" class="form-label">Projeto</label>
     <select name="projeto_id" class="form-control">
-        <option value="">-- Selecione --</option>
+        <option value="">-- Nenhum --</option>
         @foreach($projetos as $projeto)
             <option value="{{ $projeto->id }}" 
-                {{ old('projeto_id', $dado->projeto_id) == $projeto->id ? 'selected' : '' }}>
+                {{ old('projeto_id', $dado->projeto_id ?? '') == $projeto->id ? 'selected' : '' }}>
                 {{ $projeto->nome }}
             </option>
         @endforeach
     </select>
+</div>
 </div>
         
 

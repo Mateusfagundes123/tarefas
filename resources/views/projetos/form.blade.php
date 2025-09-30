@@ -5,10 +5,10 @@
 @section('conteudo')
     @php
         if (!empty($projeto->id)) {
-            $action = route('projeto.update', $projeto->id);
+            $action = route('projetos.update', $projeto->id);
             $method = 'PUT';
         } else {
-            $action = route('projeto.store');
+            $action = route('projetos.store');
             $method = 'POST';
         }
     @endphp
@@ -31,10 +31,24 @@
 
         <div class="mb-3">
             <label for="prazo">Prazo</label>
-            <input type="date" name="prazo" value="{{ old('prazo', isset($projeto->prazo) ? $projeto->prazo->format('Y-m-d') : '') }}" class="form-control">
+            <input type="date" name="prazo" 
+                value="{{ old('prazo', isset($projeto->prazo) ? \Carbon\Carbon::parse($projeto->prazo)->format('Y-m-d') : '') }}" 
+                class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="tarefas" class="form-label">Tarefas</label>
+            <select name="tarefas[]" class="form-control" multiple>
+                @foreach($tarefas as $tarefa)
+                    <option value="{{ $tarefa->id }}"
+                        @if(isset($projeto) && $projeto->tarefas->contains($tarefa->id)) selected @endif>
+                        {{ $tarefa->titulo }}
+                    </option>
+                @endforeach
+            </select>
         </div>
 
         <button type="submit" class="btn btn-success">Salvar</button>
-        <a href="{{ route('projeto.index') }}" class="btn btn-secondary">Cancelar</a>
+        <a href="{{ route('projetos.list') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 @stop

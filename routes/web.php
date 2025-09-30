@@ -34,4 +34,10 @@ Route::delete('tarefa/{id}', [TarefaController::class, 'destroy'])->name('tarefa
 /**
  * Rotas projeto
  */ 
-Route::resource('projeto', ProjetoController::class)->except(['show']);
+Route::get('/projetos', [ProjetoController::class, 'index'])->name('projetos.list');
+Route::get('/projetos/create', [ProjetoController::class, 'create'])->name('projetos.create');
+Route::post('/projetos', [ProjetoController::class, 'store'])->name('projetos.store');
+Route::get('/projetos/{projeto}/edit', [ProjetoController::class, 'edit'])->name('projetos.edit');
+Route::put('/projetos/{projeto}', [ProjetoController::class, 'update'])->name('projetos.update');
+Route::delete('/projetos/{projeto}', [ProjetoController::class, 'destroy'])->name('projetos.destroy');
+Route::get('/projetos/{projeto}', [ProjetoController::class, 'show'])->name('projetos.show');
