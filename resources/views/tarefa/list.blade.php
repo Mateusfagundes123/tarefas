@@ -1,6 +1,11 @@
 @extends('base')
 @section('titulo', 'Lista de Tarefas')
 @section('conteudo')
+<a href="{{ url('/') }}">
+    <button >
+        <img src="{{ asset('img/voltar.png') }}" alt="Voltar" width="15" height="15">
+    </button>
+</a>
     <h1>Lista de Tarefas</h1>
 
         <div class="row">

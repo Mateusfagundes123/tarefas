@@ -3,6 +3,12 @@
 @section('titulo', isset($projeto) ? 'Editar Projeto' : 'Novo Projeto')
 
 @section('conteudo')
+<a href="{{ url('/') }}">
+    <button >
+        <img src="{{ asset('img/voltar.png') }}" alt="Voltar" width="15" height="15">
+    </button>
+</a>
+<h1>Cadastrar projetos</h1>
     @php
         if (!empty($projeto->id)) {
             $action = route('projetos.update', $projeto->id);
