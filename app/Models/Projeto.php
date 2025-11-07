@@ -13,7 +13,7 @@ class Projeto extends Model
 
     public function tarefas()
     {
-        return $this->hasMany(Tarefa::class);
+        return $this->hasMany(Tarefa::class);    
     }
     
 }

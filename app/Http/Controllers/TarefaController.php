@@ -9,6 +9,16 @@ use App\Models\Projeto;
 
 class TarefaController extends Controller
 {
+
+public function gerarPDFTarefas()
+{
+    $tarefas = Tarefa::with('projeto')->get();
+
+    $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('tarefas.relatorio', compact('tarefas'));
+
+    return $pdf->download('relatorio_tarefas.pdf');
+}
+
     public function index()
     {
         $dados = Tarefa::with('grauImportancia')->get();

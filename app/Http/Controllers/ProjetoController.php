@@ -2,12 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Projeto;
 use App\Models\Tarefa;
 use Illuminate\Http\Request;
 
 class ProjetoController extends Controller
 {
+    public function gerarPDF()
+{
+    $projetos = Projeto::with('tarefas')->get();
+
+    $pdf = Pdf::loadView('projetos.relatorio', compact('projetos'));
+
+    return $pdf->download('relatorio_projetos.pdf');
+}
+
+
+
     // Lista todos os projetos
     public function index()
     {

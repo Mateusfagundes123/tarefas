@@ -43,3 +43,9 @@ Route::put('/projetos/{projeto}', [ProjetoController::class, 'update'])->name('p
 Route::delete('/projetos/{projeto}', [ProjetoController::class, 'destroy'])->name('projetos.destroy');
 Route::get('/projetos/{projeto}', [ProjetoController::class, 'show'])->name('projetos.show');
 Route::resource('projetos', ProjetoController::class);  
+
+
+Route::get('/projetos.pdf', [ProjetoController::class, 'gerarPDF'])->name('projetos.pdf');
+
+Route::get('/tarefas.pdf', [ProjetoController::class, 'gerarPDF'])->name('tarefas.pdf');
+

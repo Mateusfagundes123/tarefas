@@ -35,6 +35,7 @@
 
                     <div class="col-md-3">
                         <a href="{{ route('projetos.create') }}" class="btn btn-success mb-3">Novo Projeto</a>
+                        <a href="{{ route('projetos.pdf') }}" class="btn btn-secondary mb-3">Gerar Relatório PDF</a>
                     </div>
                 </div>
             </form>

@@ -13,7 +13,7 @@
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
                     <span class="text-white text-xl font-bold">
-                        <i class="fas fa-tachometer-alt mr-2"></i>Sistema de Gestão
+                        <i class="fas fa-tachometer-alt mr-2"></i>Sistema de Gestão ADM
                     </span>
                 </div>
                 <div class="flex items-center space-x-4">
