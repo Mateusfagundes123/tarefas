@@ -26,6 +26,12 @@
                     <a href="/tarefa" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">
                         <i class="fas fa-tasks mr-1"></i>Projetos
                     </a>
+                    <a href="/tarefa" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">
+                        <i class="fas fa-tasks mr-1"></i>Documentos
+                    </a>
+                    <a href="/tarefa" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">
+                        <i class="fas fa-tasks mr-1"></i>Gestão de Reuniões
+                    </a>
                 </div>
             </div>
         </div>
@@ -55,7 +61,7 @@
                         </a>
                     </div>
                 </div>
-                
+
             </div>
 
 
@@ -83,6 +89,46 @@
             <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
                 <div class="p-6">
                     <div class="flex items-center mb-4">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-users text-blue-600 text-xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Gestão de Documentos</h2>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <a href="/projetos" class="bg-blue-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 flex items-center">
+                            <i class="fas fa-arrow-right mr-2"></i>Acessar Projetos
+                        </a>
+                        <a href="/projetos/create" class="bg-blue-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 flex items-center">
+                            <i class="fas fa-arrow-right mr-2"></i>criar Projetos
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+                <div class="p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-users text-blue-600 text-xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Gestão de Reuniões</h2>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <a href="/projetos" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 flex items-center">
+                            <i class="fas fa-arrow-right mr-2"></i>Acessar Projetos
+                        </a>
+                        <a href="/projetos/create" class="bg-blue-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 flex items-center">
+                            <i class="fas fa-arrow-right mr-2"></i>criar Projetos
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+                <div class="p-6">
+                    <div class="flex items-center mb-4">
                         <div class="bg-green-100 p-3 rounded-full mr-4">
                             <i class="fas fa-tasks text-green-600 text-xl"></i>
                         </div>
@@ -100,6 +146,6 @@
             </div>
         </div>
     </main>
-    
+
 </body>
 </html>
