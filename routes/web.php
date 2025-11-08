@@ -5,6 +5,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\TarefaController;
 use App\Http\Controllers\ProjetoController;
 use App\Http\Controllers\DocumentosController;
+use App\Http\Controllers\DashboardController;
 
 
 Route::get('/', function () {
@@ -64,3 +65,6 @@ Route::get('/projetos.pdf', [ProjetoController::class, 'gerarPDF'])->name('proje
 
 Route::get('/tarefas.pdf', [TarefaController::class, 'gerarPDFTarefas'])->name('tarefas.pdf');
 
+
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

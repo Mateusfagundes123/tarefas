@@ -34,6 +34,11 @@
                     <a href="/projetos" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">Projetos</a>
                     <a href="/documentos" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">Documentos</a>
                     <a href="#" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">Reuniões</a>
+                    <a href="{{ route('dashboard') }}" class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+    <i class="fas fa-chart-line mr-1"></i> Dashboard
+</a>
+
+
                 </div>
             </div>
         </div>
