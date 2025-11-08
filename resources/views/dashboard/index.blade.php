@@ -44,49 +44,28 @@
         </div>
     </div>
 
-    {{-- Gráficos --}}
-    <div class="row g-4">
-        <div class="col-md-4">
+    {{-- Gráfico centralizado com gráfico maior dentro do card --}}
+    <div class="row justify-content-center">
+        <div class="col-md-5">
             <div class="card shadow border-0">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header bg-primary text-white text-center">
                     <i class="fa-solid fa-tasks"></i> Tarefas (Concluídas x Pendentes)
                 </div>
-                <div class="card-body">
-                    <canvas id="graficoTarefas" height="180"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card shadow border-0">
-                <div class="card-header bg-success text-white">
-                    <i class="fa-solid fa-users"></i> Projetos por Cliente
-                </div>
-                <div class="card-body">
-                    <canvas id="graficoProjetos" height="180"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card shadow border-0">
-                <div class="card-header bg-warning text-dark">
-                    <i class="fa-solid fa-file-lines"></i> Documentos por Tipo
-                </div>
-                <div class="card-body">
-                    <canvas id="graficoDocumentos" height="180"></canvas>
+                <div class="card-body text-center">
+                    <div style="width: 100%; display: flex; justify-content: center;">
+                        <canvas id="graficoTarefas" style="width: 90% !important; max-width: 500px !important; height: 300px !important;"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-
 <script src="https://kit.fontawesome.com/6dc3a0dcf1.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    // grafico 1 - tarefas
+    
     new Chart(document.getElementById('graficoTarefas'), {
         type: 'doughnut',
         data: {
@@ -94,38 +73,15 @@
             datasets: [{
                 data: [{{ $tarefasConcluidas }}, {{ $tarefasPendentes }}],
                 backgroundColor: ['#28a745', '#dc3545'],
-                hoverOffset: 6
-            }]
-        }
-    });
-
-    // grafico 2 - projetos por cliente
-    new Chart(document.getElementById('graficoProjetos'), {
-        type: 'bar',
-        data: {
-            labels: {!! json_encode($clientes) !!},
-            datasets: [{
-                label: 'Projetos',
-                data: {!! json_encode($qtdProjeto) !!},
-                backgroundColor: '#0d6efd'
+                hoverOffset: 8,
+                cutout: '55%' 
             }]
         },
         options: {
             responsive: true,
-            scales: { y: { beginAtZero: true } }
-        }
-    });
-
-    // Gráfico 3 - Documentos por Tipo
-    new Chart(document.getElementById('graficoDocumentos'), {
-        type: 'pie',
-        data: {
-            labels: {!! json_encode($tipos) !!},
-            datasets: [{
-                data: {!! json_encode($qtdDocumentos) !!},
-                backgroundColor: ['#ffc107', '#17a2b8', '#6f42c1', '#20c997', '#fd7e14'],
-                hoverOffset: 6
-            }]
+            plugins: {
+                legend: { position: 'bottom' }
+            }
         }
     });
 </script>
