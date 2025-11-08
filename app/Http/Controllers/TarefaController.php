@@ -6,17 +6,25 @@ use App\Models\Tarefa;
 use App\Models\GrauImportancia;
 use Illuminate\Http\Request;
 use App\Models\Projeto;
+use Barryvdh\DomPDF\Facade\Pdf; 
+
 
 class TarefaController extends Controller
 {
 
 public function gerarPDFTarefas()
 {
-    $tarefas = Tarefa::with('projeto')->get();
+    $tarefas = Tarefa::with('projeto')
+        ->where('concluida', 1)
+        ->get();
 
-    $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('tarefas.relatorio', compact('tarefas'));
+    if ($tarefas->isEmpty()) {
+        return back()->with('error', 'Nenhuma tarefa concluída encontrada.');
+    }
 
-    return $pdf->download('relatorio_tarefas.pdf');
+    $pdf = Pdf::loadView('tarefa.relatorio', compact('tarefas'));
+
+    return $pdf->download('relatorio_tarefas_concluidas.pdf');
 }
 
     public function index()
@@ -67,17 +75,16 @@ public function gerarPDFTarefas()
 
  public function edit($id)
 {
-    $dado = Tarefa::findOrFail($id); // sempre retorna um objeto válido
+    $dado = Tarefa::findOrFail($id); 
     $projetos = Projeto::all();
     $graus = GrauImportancia::all();
 
     return view('tarefa.form', [
-        'dado' => $dado,       // mantém o nome igual ao form.blade.php
+        'dado' => $dado,      
         'projetos' => $projetos,
         'graus' => $graus,
     ]);
 }
-
 
    public function update(Request $request, $id)
 {

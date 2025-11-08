@@ -3,11 +3,12 @@
 @section('titulo', isset($documento) ? 'Editar Documento' : 'Novo Documento')
 
 @section('conteudo')
-    <a href="{{ route('documentos.index') }}">
-        <button>
-            <img src="{{ asset('img/voltar.png') }}" alt="Voltar" width="15" height="15">
-        </button>
-    </a>
+    <a href="{{ url('/') }}">
+            <button class="btn btn-outline-primary btn-lg d-flex align-items-center justify-content-center"
+                    style="width: 55px; height: 55px; border-radius: 50%;">
+                <img src="{{ asset('img/voltar.png') }}" alt="Voltar" width="20" height="20">
+            </button>
+        </a>
 
     <h1>{{ isset($documento) ? 'Editar Documento' : 'Novo Documento' }}</h1>
 
@@ -22,13 +23,7 @@
         @endif
 
         <div class="mb-3">
-            <label class="form-label">Arquivo:</label>
-            @if(!isset($documento))
-                <input type="file" name="arquivo" class="form-control" required>
-            @else
-                <p><strong>Arquivo atual:</strong> {{ $documento->nome_arquivo }}</p>
-                <a href="{{ asset('storage/' . $documento->caminho_arquivo) }}" target="_blank" class="btn btn-outline-primary btn-sm">Visualizar</a>
-            @endif
+            
         </div>
 
         <div class="mb-3">
@@ -37,7 +32,7 @@
         </div>
 
         <button type="submit" class="btn btn-success">
-            💾 {{ isset($documento) ? 'Atualizar' : 'Salvar' }}
+            {{ isset($documento) ? 'Atualizar' : 'Salvar' }}
         </button>
         <a href="{{ route('documentos.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\Documentos;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class DocumentosController extends Controller
 {
@@ -16,7 +19,7 @@ class DocumentosController extends Controller
 
     public function create()
     {
-        return view('documentos.create');
+        return view('documentos.form');
     }
 
     public function store(Request $request)
@@ -40,34 +43,52 @@ class DocumentosController extends Controller
         return redirect()->route('documentos.index')->with('success', 'Documento enviado com sucesso!');
     }
 
-    public function show(Documentos $documentos)
-    {
-        return view('documentos.show', compact('documento'));
-    }
+    public function show(Documentos $documento)
+{
+    return view('documentos.show', compact('documento'));
+}
 
-    public function edit(Documentos $documentos)
-    {
-        return view('documentos.edit', compact('documento'));
-    }
+public function edit(Documentos $documento)
+{
+    return view('documentos.form', compact('documento'));
+}
 
-    public function update(Request $request, Documentos $documentos)
-    {
-        $request->validate([
-            'descricao' => 'nullable|string|max:255',
-        ]);
+        public function update(Request $request, Documentos $documento)
+        {
+            $request->validate([
+                'descricao' => 'nullable|string|max:255',
+            ]);
 
-        $documentos->update([
-            'descricao' => $request->descricao,
-        ]);
+            $documento->update([
+                'descricao' => $request->descricao,
+            ]);
 
-        return redirect()->route('documentos.index')->with('success', 'Documento atualizado com sucesso!');
-    }
+            return redirect()->route('documentos.index')->with('success', 'Documento atualizado com sucesso!');
+        }
 
-    public function destroy(Documentos $documentos)
-    {
-        Storage::disk('public')->delete($documentos->caminho_arquivo);
-        $documentos->delete();
+        public function destroy(Documentos $documento)
+        {
+            Storage::disk('public')->delete($documento->caminho_arquivo);
+            $documento->delete();
 
-        return redirect()->route('documentos.index')->with('success', 'Documento excluído com sucesso!');
-    }
+            return redirect()->route('documentos.index')->with('success', 'Documento excluído com sucesso!');
+        }
+        public function gerarPDF()
+        {
+            $documentos = Documentos::all();
+
+            $pdf = Pdf::loadView('documentos.relatorio', compact('documentos'));
+
+            return $pdf->download('relatorio_documentos.pdf');
+        }
+        public function download(Documentos $documento)
+        {
+            $filePath = $documento->caminho_arquivo;
+
+            if (!Storage::disk('public')->exists($filePath)) {
+                return redirect()->route('documentos.index')->with('error', 'Arquivo não encontrado.');
+            }
+
+            return Storage::disk('public')->download($filePath, $documento->nome_arquivo);
+        }
 }

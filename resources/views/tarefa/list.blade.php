@@ -1,11 +1,13 @@
 @extends('base')
 @section('titulo', 'Lista de Tarefas')
 @section('conteudo')
-<a href="{{ url('/') }}">
-    <button >
-        <img src="{{ asset('img/voltar.png') }}" alt="Voltar" width="15" height="15">
-    </button>
-</a>
+
+ <a href="{{ url('/') }}">
+            <button class="btn btn-outline-primary btn-lg d-flex align-items-center justify-content-center"
+                    style="width: 55px; height: 55px; border-radius: 50%;">
+                <img src="{{ asset('img/voltar.png') }}" alt="Voltar" width="20" height="20">
+            </button>
+        </a>
     <h1>Lista de Tarefas</h1>
 
         <div class="row">
@@ -33,7 +35,7 @@
 
                     <div class="col-md-3">
                        <a href="{{ route('tarefa.create') }}" class="btn btn-success mb-3">Nova Tarefa</a>
-                        <a href="{{ route('tarefas.pdf') }}" class="btn btn-success mb-3">Gerar relatorio</a>
+                        <a href="{{ route('tarefas.pdf') }}" class="btn btn-success mb-3">Gerar Relatório tarefas concluídas</a>
 
                     </div>
                 </div>

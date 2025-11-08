@@ -11,7 +11,7 @@
     </style>
 </head>
 <body>
-    <h2>Relatório de Tarefas</h2>
+    <h2>Relatório de Tarefas Concluídas</h2>
 
     <table>
         <thead>
@@ -19,7 +19,7 @@
                 <th>ID</th>
                 <th>Título</th>
                 <th>Descrição</th>
-                <th>Data Entrega</th>
+                <th>Data de Entrega</th>
                 <th>Projeto</th>
             </tr>
         </thead>

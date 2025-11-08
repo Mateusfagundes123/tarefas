@@ -45,22 +45,22 @@ Route::delete('/projetos/{projeto}', [ProjetoController::class, 'destroy'])->nam
 Route::get('/projetos/{projeto}', [ProjetoController::class, 'show'])->name('projetos.show');
 Route::resource('projetos', ProjetoController::class);
 
-
-Route::post('/documentos/search', [DocumentosController::class, 'search'])->name('documentos.search');
-Route::get('/documentos', [DocumentosController::class, 'index'])->name('documentos.list');
+Route::get('/documentos', [DocumentosController::class, 'index'])->name('documentos.index');
 Route::get('/documentos/create', [DocumentosController::class, 'create'])->name('documentos.create');
 Route::post('/documentos', [DocumentosController::class, 'store'])->name('documentos.store');
-Route::get('/documentos/edit/{id}', [DocumentosController::class, 'edit'])->name('documentos.edit');
-Route::put('/documentos/update/{id}', [DocumentosController::class, 'update'])->name('documentos.update');
-Route::delete('/documentos/{id}', [DocumentosController::class, 'destroy'])->name('documentos.destroy');
-Route::get('/documentos/{id}', [DocumentosController::class, 'show'])->name('documentos.show');
 
+// ⚙️ Aqui corrigimos para usar {documento} em vez de {id}
+Route::get('/documentos/{documento}', [DocumentosController::class, 'show'])->name('documentos.show');
+Route::get('/documentos/{documento}/edit', [DocumentosController::class, 'edit'])->name('documentos.edit');
+Route::put('/documentos/{documento}', [DocumentosController::class, 'update'])->name('documentos.update');
+Route::delete('/documentos/{documento}', [DocumentosController::class, 'destroy'])->name('documentos.destroy');
+Route::get('/documentos/{documento}/download', [DocumentosController::class, 'download'])->name('documentos.download');
 
-
+// Rota extra (caso você use busca)
+Route::post('/documentos/search', [DocumentosController::class, 'search'])->name('documentos.search');
 
 
 Route::get('/projetos.pdf', [ProjetoController::class, 'gerarPDF'])->name('projetos.pdf');
 
-Route::get('/tarefas.pdf', [ProjetoController::class, 'gerarPDF'])->name('tarefas.pdf');
+Route::get('/tarefas.pdf', [TarefaController::class, 'gerarPDFTarefas'])->name('tarefas.pdf');
 
-Route::get('/documentos.pdf', [DocumentosController::class, 'gerarPDF'])->name('documentos.pdf');

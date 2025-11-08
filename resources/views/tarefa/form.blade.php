@@ -1,11 +1,13 @@
 @extends('base')
 @section('titulo', 'Formulário Tarefa')
 @section('conteudo')
-<a href="{{ url('/') }}">
-    <button >
-        <img src="{{ asset('img/voltar.png') }}" alt="Voltar" width="15" height="15">
-    </button>
-</a>
+
+ <a href="{{ url('/') }}">
+            <button class="btn btn-outline-primary btn-lg d-flex align-items-center justify-content-center"
+                    style="width: 55px; height: 55px; border-radius: 50%;">
+                <img src="{{ asset('img/voltar.png') }}" alt="Voltar" width="20" height="20">
+            </button>
+        </a>
 <h1>Cadastrar tarefas</h1>
 
     @php
