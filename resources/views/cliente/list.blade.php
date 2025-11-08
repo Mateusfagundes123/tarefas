@@ -1,7 +1,6 @@
 @extends('base')
-@section('titulo', 'Lista de Reuniões')
+@section('titulo', 'Lista de Clientes')
 @section('conteudo')
-
 
 <a href="{{ url('/') }}">
     <button class="btn btn-outline-primary btn-lg d-flex align-items-center justify-content-center"
@@ -10,100 +9,102 @@
     </button>
 </a>
 
-
-<h1>Lista de Reuniões</h1>
-
+<h1>Lista de Clientes</h1>
 
 <div class="row">
     <div class="col">
-        <form action="{{ route('reunioes.search') }}" method="post">
+        <form action="{{ route('cliente.search') }}" method="post">
             @csrf
             <div class="row">
                 <div class="col-md-3">
                     <label class="form-label">Tipo</label>
                     <select name="tipo" class="form-select">
                         <option value="nome">Nome</option>
-                        <option value="data">Data</option>
+                        <option value="email">Email</option>
+                        <option value="cpf">CPF</option>
+                        <option value="telefone">Telefone</option>
                     </select>
                 </div>
-
 
                 <div class="col-md-4">
                     <label class="form-label">Valor</label>
                     <input type="text" class="form-control" name="valor" placeholder="Pesquisar...">
                 </div>
 
-
-                <div class="col-md-3 mt-4">
-                    <button type="submit" class="btn btn-primary mt-2">
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary">
                         <i class="fa-solid fa-magnifying-glass"></i> Buscar
                     </button>
                 </div>
 
-
-                <div class="col-md-3 mt-4">
-                    <a href="{{ route('reunioes.create') }}" class="btn btn-success mb-3">Nova Reunião</a>
+                <div class="col-md-3">
+                    <a href="{{ route('cliente.create') }}" class="btn btn-success mb-3">Novo Cliente</a>
                 </div>
             </div>
         </form>
     </div>
 </div>
 
-
-<table class="table table-bordered mt-4">
-    <thead class="table-light">
+<table class="table table-bordered">
+    <thead>
         <tr>
             <th>ID</th>
-            <th>Nome</th>
-            <th>Data</th>
-            <th>Hora</th>
             <th>Imagem</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>CPF</th>
+            <th>Telefone</th>
             <th>Ações</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($dados as $reuniao)
+        @foreach ($dados as $cliente)
             <tr>
-                <td>{{ $reuniao->id }}</td>
-                <td>{{ $reuniao->nome }}</td>
-                <td>{{ \Carbon\Carbon::parse($reuniao->data)->format('d/m/Y') }}</td>
-                <td>{{ $reuniao->hora }}</td>
-                <td>
-    @if ($reuniao->imagem)
-        <div style="
-            width: 120px;
-            height: 120px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #f8f9fa;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-        ">
-            <img src="{{ asset('storage/' . $reuniao->imagem) }}"
-                 alt="Imagem da reunião"
-                 style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-    @else
-        <span class="text-muted">Sem imagem</span>
-    @endif
-</td>
-
+                <td>{{ $cliente->id }}</td>
 
                 <td>
-                    <a href="{{ route('reunioes.edit', $reuniao->id) }}" class="btn btn-primary btn-sm">Editar</a>
-                    <form action="{{ route('reunioes.destroy', $reuniao->id) }}" method="POST" style="display:inline;">
+                    @if ($cliente->imagem)
+                        <div style="
+                            width: 80px;
+                            height: 80px;
+                            border-radius: 10px;
+                            overflow: hidden;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            background-color: #f8f9fa;
+                            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                        ">
+                            <img src="{{ asset('storage/' . $cliente->imagem) }}"
+                                 alt="Imagem cliente"
+                                 style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                    @else
+                        <span class="text-muted">Sem imagem</span>
+                    @endif
+                </td>
+
+                <td>{{ $cliente->nome }}</td>
+                <td>{{ $cliente->email }}</td>
+                <td>{{ $cliente->cpf }}</td>
+                <td>{{ $cliente->telefone ?? '—' }}</td>
+
+                <td>
+                    <a href="{{ route('cliente.edit', $cliente->id) }}" class="btn btn-primary btn-sm">
+                        Editar
+                    </a>
+
+                    <form action="{{ route('cliente.destroy', $cliente->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            Excluir
+                        </button>
                     </form>
                 </td>
             </tr>
         @endforeach
     </tbody>
 </table>
-
 
 @stop

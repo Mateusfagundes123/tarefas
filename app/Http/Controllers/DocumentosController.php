@@ -25,7 +25,7 @@ class DocumentosController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'arquivo' => 'required|file|max:5120', // até 5MB
+            'arquivo' => 'required|file|max:5120', 
             'descricao' => 'nullable|string|max:255',
         ]);
 

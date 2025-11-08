@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Models\Projeto;
 use Barryvdh\DomPDF\Facade\Pdf; 
 
-
 class TarefaController extends Controller
 {
 
@@ -26,7 +25,6 @@ public function gerarPDFTarefas()
 
     return $pdf->download('relatorio_tarefas_concluidas.pdf');
 }
-
     public function index()
     {
         $dados = Tarefa::with('grauImportancia')->get();

@@ -19,14 +19,4 @@ class Documentos extends Model
         'cliente_id',
     ];
 
-    // Relacionamentos opcionais
-    public function projeto()
-    {
-        return $this->belongsTo(Projeto::class);
-    }
-
-    public function cliente()
-    {
-        return $this->belongsTo(Cliente::class);
-    }
 }

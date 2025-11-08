@@ -78,9 +78,7 @@
                     </td>
                 </tr>
             @empty
-                <tr>
-                    <td colspan="7" class="text-center">Nenhum documento encontrado.</td>
-                </tr>
+                
             @endforelse
         </tbody>
     </table>

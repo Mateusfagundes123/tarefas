@@ -1,9 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\Cliente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class ClienteController extends Controller
 {
@@ -14,11 +14,10 @@ class ClienteController extends Controller
         return view('cliente.list', ['dados' => $dados]);
     }
 
-
-   public function create()
-{
-    return view('cliente.form');
-}
+    public function create()
+    {
+        return view('cliente.form');
+    }
 
     private function validateRequest(Request $request)
     {
@@ -34,10 +33,8 @@ class ClienteController extends Controller
         ]);
     }
 
-
     public function store(Request $request)
     {
-        // dd($request->all());
         $this->validateRequest($request);
         $data = $request->all();
         $imagem = $request->file('imagem');
@@ -59,31 +56,19 @@ class ClienteController extends Controller
         return redirect('cliente');
     }
 
-
-    public function show(string $id)
-    {
-        //
-    }
-
-
     public function edit(string $id)
     {
-        // dd($dado);
         $dado = Cliente::findOrFail($id);
-        //$categorias = CategoriaCliente::orderBy('nome')->get();
 
         return view( 'cliente.form',
             [
                 'dado' => $dado,
-                //'categorias'=>$categorias
             ]
         );
     }
 
-
     public function update(Request $request, string $id)
     {
-        //dd($request->all());
         $this->validateRequest($request);
         $data = $request->all();
         $imagem = $request->file('imagem');
@@ -105,14 +90,17 @@ class ClienteController extends Controller
         return redirect('cliente');
     }
 
-
     public function destroy(string $id)
     {
         $dado = Cliente::findOrFail($id);
 
+        if (!empty($dado->imagem) && Storage::disk('public')->exists($dado->imagem)) {
+            Storage::disk('public')->delete($dado->imagem);
+        }
+
         $dado->delete();
 
-        return redirect('cliente');
+        return redirect('cliente')->with('success', 'Cliente excluído com sucesso!');
     }
 
     public function search(Request $request)

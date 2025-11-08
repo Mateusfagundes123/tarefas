@@ -1,77 +1,80 @@
 @extends('base')
-@section('titulo', 'Formulário Cliente')
+@section('titulo', isset($reuniao) ? 'Editar Reunião' : 'Cadastrar Reunião')
 
 @section('conteudo')
- <a href="{{ url('/') }}">
-            <button class="btn btn-outline-primary btn-lg d-flex align-items-center justify-content-center"
-                    style="width: 55px; height: 55px; border-radius: 50%;">
-                <img src="{{ asset('img/voltar.png') }}" alt="Voltar" width="20" height="20">
-            </button>
-        </a>
+<a href="{{ route('reunioes.index') }}">
+    <button class="btn btn-outline-primary btn-lg d-flex align-items-center justify-content-center"
+            style="width: 55px; height: 55px; border-radius: 50%;">
+        <img src="{{ asset('img/voltar.png') }}" alt="Voltar" width="20" height="20">
+    </button>
+</a>
 
-<h1>Cadastrar Clientes</h1>
+<h1>{{ isset($reuniao) ? 'Editar Reunião' : 'Cadastrar Reunião' }}</h1>
 
 @php
-    if (!empty($dado->id)) {
-        $action = route('cliente.update', $dado->id);
+    if (!empty($reuniao->id)) {
+        $action = route('reunioes.update', $reuniao->id);
+        $method = 'PUT';
     } else {
-        $action = route('cliente.store');
+        $action = route('reunioes.store');
+        $method = 'POST';
     }
 @endphp
 
-<form action="{{ $action }}" method="post" enctype="multipart/form-data">
+<form action="{{ $action }}" method="POST" enctype="multipart/form-data">
     @csrf
-
-    @if (!empty($dado->id))
-        @method('put')
+    @if ($method === 'PUT')
+        @method('PUT')
     @endif
 
-    <input type="hidden" name="id" value="{{ old('id', $dado->id ?? '') }}">
-
     <div class="row">
-        <div class="col">
-            <label for="">Nome</label>
-            <input type="text" class="form-control" name="nome" value="{{ old('nome', $dado->nome ?? '') }}">
+        {{-- Nome da Reunião --}}
+        <div class="col-md-6 mb-3">
+            <label for="nome" class="form-label">Nome da Reunião</label>
+            <input type="text" name="nome" id="nome"
+                   class="form-control"
+                   value="{{ old('nome', $reuniao->nome ?? '') }}"
+                   required>
         </div>
 
-        <div class="col">
-            <label for="">Email</label>
-            <input type="text" class="form-control" name="email" value="{{ old('email', $dado->email ?? '') }}">
-        </div>
-    </div>
-
-    <div class="row mt-3">
-        <div class="col">
-            <label for="">CPF</label>
-            <input type="text" class="form-control" name="cpf" value="{{ old('cpf', $dado->cpf ?? '') }}">
+        {{-- Data --}}
+        <div class="col-md-3 mb-3">
+            <label for="data" class="form-label">Data</label>
+            <input type="date" name="data" id="data"
+                   class="form-control"
+                   value="{{ old('data', isset($reuniao->data) ? \Carbon\Carbon::parse($reuniao->data)->format('Y-m-d') : '') }}"
+                   required>
         </div>
 
-        <div class="col">
-            <label for="">Telefone</label>
-            <input type="text" class="form-control" name="telefone" value="{{ old('telefone', $dado->telefone ?? '') }}">
-        </div>
-    </div>
-
-    {{-- Se quiser adicionar imagem depois:
-    @php
-        $nome_imagem = !empty($dado->imagem) ? $dado->imagem : 'sem_imagem.png';
-    @endphp
-
-    <div class="row mt-3">
-        <div class="col">
-            <label for="">Imagem</label>
-            <img src="/storage/{{ $nome_imagem }}" width="200" height="200" alt="img">
-            <input type="file" name="imagem" class="form-control" value="{{ old('imagem', $dado->imagem ?? '') }}">
+        {{-- Hora --}}
+        <div class="col-md-3 mb-3">
+            <label for="hora" class="form-label">Hora</label>
+            <input type="time" name="hora" id="hora"
+                   class="form-control"
+                   value="{{ old('hora', $reuniao->hora ?? '') }}"
+                   required>
         </div>
     </div>
-    --}}
+
+    {{-- Campo de imagem (opcional) --}}
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label for="imagem" class="form-label">Imagem (opcional)</label>
+            <input type="file" name="imagem" id="imagem" class="form-control">
+            @if (!empty($reuniao->imagem))
+                <div class="mt-2">
+                    <img src="{{ asset('storage/' . $reuniao->imagem) }}" alt="Imagem da Reunião" width="150" class="rounded">
+                </div>
+            @endif
+        </div>
+    </div>
 
     <div class="row mt-3">
         <div class="col">
             <button type="submit" class="btn btn-success">
-                {{ !empty($dado->id) ? 'Atualizar' : 'Salvar' }}
+                {{ isset($reuniao) ? 'Atualizar' : 'Salvar' }}
             </button>
-            <a href="{{ route('cliente.index') }}" class="btn btn-primary">Voltar</a>
+            <a href="{{ route('reunioes.index') }}" class="btn btn-primary">Voltar</a>
         </div>
     </div>
 </form>

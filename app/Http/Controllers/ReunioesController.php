@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Reunioes;
 use Illuminate\Http\Request;
@@ -11,7 +12,6 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class ReunioesController extends Controller
 {
-    // Gera um PDF com todas as reuniões cadastradas
     public function gerarPDFReunioes()
     {
         $reunioes = Reunioes::all();
@@ -28,8 +28,6 @@ class ReunioesController extends Controller
         return $pdf->download('relatorio_reunioes.pdf');
     }
 
-
-    // Exibe lista de reuniões
     public function index()
     {
         $dados = Reunioes::all();
@@ -37,21 +35,19 @@ class ReunioesController extends Controller
     }
 
 
-    // Exibe formulário de cadastro
     public function create()
     {
         return view('reunioes.form', ['dado' => new Reunioes()]);
     }
 
 
-    // Validação de campos
     private function validateRequest(Request $request)
     {
         $request->validate([
             'nome' => 'required|string|max:255',
             'data' => 'required|date',
             'hora' => 'required|string',
-            'imagem' => 'nullable|image|max:2048', // até 2MB
+            'imagem' => 'nullable|image|max:2048', 
         ], [
             'nome.required' => 'O campo nome é obrigatório',
             'data.required' => 'A data é obrigatória',
@@ -61,8 +57,6 @@ class ReunioesController extends Controller
         ]);
     }
 
-
-    // Salva nova reunião
     public function store(Request $request)
     {
         $this->validateRequest($request);
@@ -71,7 +65,6 @@ class ReunioesController extends Controller
         $data = $request->all();
 
 
-        // Upload da imagem, se existir
         if ($request->hasFile('imagem')) {
             $path = $request->file('imagem')->store('reunioes', 'public');
             $data['imagem'] = $path;
@@ -84,48 +77,50 @@ class ReunioesController extends Controller
         return redirect()->route('reunioes.index')->with('success', 'Reunião cadastrada com sucesso!');
     }
 
-
-    // Editar reunião
     public function edit($id)
     {
-        $dado = Reunioes::findOrFail($id);
-        return view('reunioes.form', ['dado' => $dado]);
+        $reuniao  = Reunioes::findOrFail($id);
+        return view('reunioes.form', ['reuniao' => $reuniao]);
     }
 
-
-    // Atualizar reunião
     public function update(Request $request, $id)
     {
         $this->validateRequest($request);
-
-
         $dado = Reunioes::findOrFail($id);
         $data = $request->all();
 
-
-        // Se houver nova imagem, substitui
         if ($request->hasFile('imagem')) {
             $path = $request->file('imagem')->store('reunioes', 'public');
             $data['imagem'] = $path;
         }
 
-
         $dado->update($data);
-
-
         return redirect()->route('reunioes.index')->with('success', 'Reunião atualizada com sucesso!');
     }
 
-
-    // Excluir reunião
     public function destroy($id)
     {
         $dado = Reunioes::findOrFail($id);
         $dado->delete();
 
 
-        return redirect()->route('reunioes.index')->with('success', 'Reunião excluída com sucesso!');
+       if (!empty($dado->imagem) && Storage::disk('public')->exists($dado->imagem)) {
+        Storage::disk('public')->delete($dado->imagem);
     }
+    $dado->delete();
+
+    return redirect('cliente')->with('success', 'Cliente excluído com sucesso!');
+}
+
+
+
+
+
+
+
+
+
+
 
 
     // Busca

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email',100);
             $table->string('cpf',16);
             $table->string('telefone',20)->nullable();
+            $table->string('imagem')->nullable();
             $table->timestamps();
         });
     }

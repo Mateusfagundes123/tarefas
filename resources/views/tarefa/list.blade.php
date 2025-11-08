@@ -35,7 +35,8 @@
 
                     <div class="col-md-3">
                        <a href="{{ route('tarefa.create') }}" class="btn btn-success mb-3">Nova Tarefa</a>
-                        <a href="{{ route('tarefas.pdf') }}" class="btn btn-success mb-3">Gerar Relatório tarefas concluídas</a>
+                        <a href="{{ route('tarefas.pdf') }}" class="btn btn-secondary mb-3">Relatório tarefas concluídas</a>
+
 
                     </div>
                 </div>
