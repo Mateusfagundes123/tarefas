@@ -6,6 +6,8 @@ use App\Http\Controllers\TarefaController;
 use App\Http\Controllers\ProjetoController;
 use App\Http\Controllers\DocumentosController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReunioesController;
+
 
 
 Route::get('/', function () {
@@ -68,3 +70,19 @@ Route::get('/tarefas.pdf', [TarefaController::class, 'gerarPDFTarefas'])->name('
 
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+
+Route::prefix('reunioes')->group(function () {
+    Route::get('/', [ReunioesController::class, 'index'])->name('reunioes.index');
+    Route::get('/create', [ReunioesController::class, 'create'])->name('reunioes.create');
+    Route::post('/', [ReunioesController::class, 'store'])->name('reunioes.store');
+    Route::get('/{id}/edit', [ReunioesController::class, 'edit'])->name('reunioes.edit');
+    Route::put('/{id}', [ReunioesController::class, 'update'])->name('reunioes.update');
+    Route::delete('/{id}', [ReunioesController::class, 'destroy'])->name('reunioes.destroy');
+
+    // Rota de busca
+    Route::post('/search', [ReunioesController::class, 'search'])->name('reunioes.search');
+
+    // Rota para gerar PDF
+    Route::get('/relatorio/pdf', [ReunioesController::class, 'gerarPDFReunioes'])->name('reunioes.pdf');
+}); 
