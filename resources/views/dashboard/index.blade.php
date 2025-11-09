@@ -38,7 +38,7 @@
                 <div class="card-body text-center">
                     <i class="fa-solid fa-folder-open fa-2x mb-2"></i>
                     <h5 class="card-title">Total de Projetos</h5>
-                    <h2>{{ $clientes->count() }}</h2>
+<h2>{{ $totalProjetos }}</h2>
                 </div>
             </div>
         </div>

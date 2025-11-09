@@ -5,43 +5,27 @@ namespace App\Http\Controllers;
 use App\Models\Tarefa;
 use App\Models\Projeto;
 use App\Models\Cliente;
-use App\Models\Documentos; 
-use Illuminate\Support\Facades\DB;
+use App\Models\Documentos;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        
+        // Gráfico de tarefas concluídas e pendentes
         $tarefasConcluidas = Tarefa::where('concluida', 1)->count();
         $tarefasPendentes  = Tarefa::where('concluida', 0)->count();
 
-      
-        $clientes = Cliente::pluck('nome');
-        $qtdProjeto = [];
-        foreach ($clientes as $cliente) {
-            $qtdProjeto[] = Projeto::where('cliente', $cliente)->count();
-        }
+        // Contagem geral
+        $totalClientes     = Cliente::count();
+        $totalProjetos     = Projeto::count();
+        $totalDocumentos   = Documentos::count();
 
-        
-        $tipos = Documentos::select('tipo')->distinct()->pluck('tipo');
-        $qtdDocumentos = [];
-        foreach ($tipos as $tipo) {
-            $qtdDocumentos[] = Documentos::where('tipo', $tipo)->count();
-        }
-
-   
-        $totalProjeto = Projeto::count();
-        $totalDocumentos = Documentos::count();
-
+        // Dados para view
         return view('dashboard.index', compact(
             'tarefasConcluidas',
             'tarefasPendentes',
-            'clientes',
-            'qtdProjeto',
-            'tipos',
-            'qtdDocumentos',
-            'totalProjeto',
+            'totalClientes',
+            'totalProjetos',
             'totalDocumentos'
         ));
     }
